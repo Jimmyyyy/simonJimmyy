@@ -1,4 +1,4 @@
-package guiPractice.Simon;
+package FinalSimonGame;
 
 import java.awt.Color;
 import java.util.ArrayList;

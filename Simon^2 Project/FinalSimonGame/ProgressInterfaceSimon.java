@@ -1,4 +1,4 @@
-package guiPractice.Simon;
+package FinalSimonGame;
 
 import guiPractice.components.Visible;
 

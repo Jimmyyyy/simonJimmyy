@@ -1,5 +1,4 @@
-package guiPractice.Simon;
-
+package FinalSimonGame;
 import guiPractice.GUIApplication;
 
 public class SimonGameSimon extends GUIApplication{
