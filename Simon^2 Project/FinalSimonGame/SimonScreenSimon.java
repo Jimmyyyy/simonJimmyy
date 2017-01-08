@@ -59,7 +59,7 @@ public class SimonScreenSimon extends ClickableScreen implements Runnable{
 			if(b!=null)b.dim();
 			b = m.getButton();
 			b.highlight();
-			int sleepTime=1000*(int)Math.exp(roundNumber);
+			int sleepTime=1000;//*(int)Math.exp(roundNumber);
 			try {
 				Thread.sleep(sleepTime);
 			} catch (InterruptedException e) {
