@@ -23,6 +23,7 @@ public class ButtonJaviy extends Component implements ButtonInterfaceSimon {
 	}
 
 	public boolean isHovered(int x, int y) {
+		//distance formula
 		double distance = Math.sqrt(Math.pow(x-(getX()+WIDTH/2), 2)+Math.pow(y-(getY()+HEIGHT/2), 2));
 		return distance < WIDTH/2;
 	}
