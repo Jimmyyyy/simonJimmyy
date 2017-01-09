@@ -11,7 +11,7 @@ import guiPractice.ClickableScreen;
 
 public class SimonScreenSimon extends ClickableScreen implements Runnable{
 
-	private TextLabel tLabel;
+	private TextLabel label;
 	private ButtonInterfaceSimon[] bInterface;
 	private ProgressInterfaceSimon pInterface;
 	private ArrayList<MoveInterfaceSimon> mInterface; 
@@ -22,8 +22,14 @@ public class SimonScreenSimon extends ClickableScreen implements Runnable{
 
 	public SimonScreenSimon(int width, int height) {
 		super(width, height);
-		Thread screen = new Thread(this);
-		screen.start();
+		Thread app = new Thread(this);
+		app.start();
+	}
+
+	@Override
+	public void run(){
+		label.setText("");
+		nextRound();
 	}
 
 	public void nextRound() {
@@ -32,26 +38,15 @@ public class SimonScreenSimon extends ClickableScreen implements Runnable{
 		pInterface.setRound(roundNumber);
 		mInterface.add(randomMove());
 		pInterface.setSequenceSize(mInterface.size());
-		changeText("Simon's turn.");
-		tLabel.setText("");
+		changeText("It is now Simon's turn.");
+		label.setText("");
 		playSequence();
-		changeText("Your turn.");
-		tLabel.setText("");
+		changeText("It is now your turn.");
+		label.setText("");
 		acceptingInput = true;
 		sequenceIndex = 0;
 	}
 
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		tLabel.setText("");
-		nextRound();
-	}
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
 	
 	private void playSequence() {
 		ButtonInterfaceSimon b = null;
@@ -71,7 +66,7 @@ public class SimonScreenSimon extends ClickableScreen implements Runnable{
 
 	private void changeText(String string) {
 		try {
-			tLabel.setText(string);
+			label.setText(string);
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 		
@@ -83,7 +78,7 @@ public class SimonScreenSimon extends ClickableScreen implements Runnable{
 	public void initAllObjects(List<Visible> viewObjects) {
 		addButtons();
 		pInterface = getProgress();
-		tLabel = new TextLabel(130,230,300,40,"Let's play Simon!");
+		label = new TextLabel(220,150,300,40,"Let's play Simon!");
 		mInterface = new ArrayList<MoveInterfaceSimon>();
 		//add 2 moves in order to start
 		lastSelectedButton = -1;
@@ -91,7 +86,7 @@ public class SimonScreenSimon extends ClickableScreen implements Runnable{
 		mInterface.add(randomMove());
 		roundNumber = 0;
 		viewObjects.add(pInterface);
-		viewObjects.add(tLabel);
+		viewObjects.add(label);
 	}
 
 	private MoveInterfaceSimon randomMove() {
@@ -106,30 +101,38 @@ public class SimonScreenSimon extends ClickableScreen implements Runnable{
 	private ProgressInterfaceSimon getProgress() {
 		return new ProgressJaviy();
 	}
+	
+	private ButtonInterfaceSimon getAButton() {
+		return new ButtonJaviy();
+	}
 
+	
+	public void gameOver() {
+		pInterface.gameOver();
+	}
 
 	private void addButtons(){
+		int numberOfButtons = 6;
 		Color[] colors = {Color.yellow, Color.blue, Color.pink, Color.green, Color.red, Color.orange};
-		int buttonCount = 6;
-		bInterface = new ButtonInterfaceSimon[buttonCount];
-
-		for(int i = 0; i < buttonCount; i++ ){			
+		bInterface = new ButtonInterfaceSimon[numberOfButtons];
+		for(int i = 0; i < numberOfButtons; i++ ){			
 			bInterface[i] = getAButton();
 			bInterface[i].setColor(colors[i]);
-			bInterface[i].setX(160 + (int)(2+100*Math.cos(i*2*Math.PI/(buttonCount))));
-			bInterface[i].setY(200 - (int)(2+100*Math.sin(i*2*Math.PI/(buttonCount))));
+			bInterface[i].setX(100 + (int)(100*i));//Math.cos(i*2*Math.PI/(numberOfButtons))));
+			if(i%2==0) bInterface[i].setY(250);// - (int)(100*Math.sin(i*2*Math.PI/(numberOfButtons))));
+			else bInterface[i].setY(200);
 			final ButtonInterfaceSimon b = bInterface[i];
 			b.dim();
-			bInterface[i].setAction(new Action() {
+			b.setAction(new Action() {
 
 				public void act() {
-
+					if(acceptingInput){
 					Thread blink = new Thread(new Runnable() {
 
 						public void run() {
 							b.highlight();
 							try {
-								Thread.sleep(800);
+								Thread.sleep(1000);
 							} catch (InterruptedException e) {
 								e.printStackTrace();
 							}
@@ -139,7 +142,7 @@ public class SimonScreenSimon extends ClickableScreen implements Runnable{
 					});
 					blink.start();
 
-					if(acceptingInput){
+					
 						if(b==mInterface.get(sequenceIndex).getButton()){
 							sequenceIndex++;
 						}else{
@@ -156,14 +159,6 @@ public class SimonScreenSimon extends ClickableScreen implements Runnable{
 			});
 			viewObjects.add(b);
 		}
-	}
-
-	public void gameOver() {
-		pInterface.gameOver();
-	}
-	
-	private ButtonInterfaceSimon getAButton() {
-		return new ButtonJaviy();
 	}
 
 }
