@@ -9,7 +9,7 @@ import guiPractice.components.Component;
 
 public class ProgressJaviy extends Component implements ProgressInterfaceSimon {
 
-	private static final int WIDTH = 100;
+	private static final int WIDTH = 250;
 	private static final int HEIGHT = 50;
 
 	private String round;
@@ -23,12 +23,12 @@ public class ProgressJaviy extends Component implements ProgressInterfaceSimon {
 
 
 	public void setRound(int roundNumber) {
-		round = "Round "+roundNumber;
+		round = "THE ROUND IS AT "+roundNumber;
 		update();
 	}
 
 	public void setSequenceSize(int size) {
-		sequencelength = "Sequence "+size;
+		sequencelength = "THE SEQUENCE LENGTH IS "+size;
 		update();
 	}
 
@@ -43,7 +43,7 @@ public class ProgressJaviy extends Component implements ProgressInterfaceSimon {
 	public void update(Graphics2D g) {
 		FontMetrics fm = g.getFontMetrics();
 		if(gameOver){
-			g.setColor(Color.gray);
+			g.setColor(Color.pink);
 			g.fillRect(0, 0, WIDTH, HEIGHT);
 			g.setColor(Color.white);
 			String go = "GAME OVER!";
