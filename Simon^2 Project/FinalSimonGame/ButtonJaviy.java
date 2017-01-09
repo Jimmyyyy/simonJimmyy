@@ -1,4 +1,5 @@
-package FinalSimonGame;
+package guiPractice.Simon;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
@@ -23,7 +24,6 @@ public class ButtonJaviy extends Component implements ButtonInterfaceSimon {
 
 	public boolean isHovered(int x, int y) {
 		double distance = Math.sqrt(Math.pow(x-(getX()+WIDTH/2), 2)+Math.pow(y-(getY()+HEIGHT/2), 2));
-//		System.out.println(distance + " px away from "+name);
 		return distance < WIDTH/2;
 	}
 
@@ -80,19 +80,8 @@ public class ButtonJaviy extends Component implements ButtonInterfaceSimon {
 		
 	}
 
-	
-	private String name;
-	public void setName(String s){
-		this.name = s;
-	}
-	
-	public String toString(){
-		return name;
-	}
-
 	@Override
 	public ButtonInterfaceSimon getAButton() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
