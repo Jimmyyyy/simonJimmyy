@@ -23,12 +23,12 @@ public class ProgressJaviy extends Component implements ProgressInterfaceSimon {
 
 
 	public void setRound(int roundNumber) {
-		round = "This is round "+roundNumber;
+		round = "Round "+roundNumber;
 		update();
 	}
 
 	public void setSequenceSize(int size) {
-		sequencelength = "Sequence length is equal to "+size;
+		sequencelength = "Sequence "+size;
 		update();
 	}
 
