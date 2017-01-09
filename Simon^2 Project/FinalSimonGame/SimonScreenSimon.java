@@ -104,7 +104,7 @@ public class SimonScreenSimon extends ClickableScreen implements Runnable{
 	}
 
 	private ProgressInterfaceSimon getProgress() {
-		return new Progress();
+		return new ProgressJaviy();
 	}
 
 
