@@ -1,30 +1,26 @@
 package simonjim;
-//
+
 import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 
 import guiPractice.components.Component;
-import guiPractice.components.Visible;
 
 public class Progress extends Component implements ProgressInterfaceSimon {
-
-	private static final int WIDTH = 100;
-	private static final int HEIGHT = 120;
-
-	private boolean gameOver;
+	
+	private static final int WIDTH = 200;
+	private static final int HEIGHT = 100;
 	private String round;
 	private String sequence;
+	private boolean gameOver;
 
 	public Progress(int x, int y, int w, int h) {
-		super(60, 60, WIDTH, HEIGHT);
+		super(200,50,WIDTH,HEIGHT);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void gameOver() {
-		// TODO Auto-generated method stub
 		gameOver = true;
 		update();
 	}
@@ -32,28 +28,39 @@ public class Progress extends Component implements ProgressInterfaceSimon {
 	@Override
 	public void setRound(int roundNumber) {
 		// TODO Auto-generated method stub
-		round = "Round " + roundNumber;
+		round = "Round "+roundNumber;
 		update();
 	}
 
 	@Override
 	public void setSequenceSize(int size) {
-		// TODO Auto-generated method stub
-		sequence = "sequence" + size;
+		sequence = "Sequence "+size;
 		update();
+
 	}
 
 	@Override
 	public void update(Graphics2D g) {
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		FontMetrics fm = g.getFontMetrics();
-		if (gameOver) {
-			g.setColor(Color.orange);
+		if(gameOver){
+			g.setColor(Color.gray);
 			g.fillRect(0, 0, WIDTH, HEIGHT);
-			g.setColor(Color.white);
+			g.setColor(Color.red);
 			String go = "GAME OVER!";
-			
+			g.drawString(go, (WIDTH - fm.stringWidth(go))/2, 20);
+			g.drawString(sequence, (WIDTH - fm.stringWidth(sequence))/2, 40);
 
+		}else{
+			g.setColor(Color.cyan);
+			g.fillRect(0, 0, WIDTH, HEIGHT);
+			g.setColor(Color.black);
+			g.drawRect(0, 0, WIDTH-1, HEIGHT-1);
+			if(round !=null && sequence!= null){
+
+				g.drawString(round, (WIDTH - fm.stringWidth(round))/2, 20);
+				g.drawString(sequence, (WIDTH - fm.stringWidth(sequence))/2, 40);
+			}
+		}
 		
 	}
 
