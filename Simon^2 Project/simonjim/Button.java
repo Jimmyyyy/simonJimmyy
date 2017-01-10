@@ -8,7 +8,7 @@ import java.awt.RenderingHints;
 import guiPractice.components.Action;
 import guiPractice.components.Component;
 
-public class Buttonn extends Component implements ButtonInterfaceSimon {
+public class Button extends Component implements ButtonInterfaceSimon {
 
 	private static final int WIDTH = 50;
 	private static final int HEIGHT = 50;
@@ -17,7 +17,7 @@ public class Buttonn extends Component implements ButtonInterfaceSimon {
 	private Color displayColor;
 	private boolean highlight;
 	
-	public Buttonn(int x, int y, int w, int h) {
+	public Button(int x, int y, int w, int h) {
 		super(x, y, w, h);
 		// TODO Auto-generated constructor stub
 	}
