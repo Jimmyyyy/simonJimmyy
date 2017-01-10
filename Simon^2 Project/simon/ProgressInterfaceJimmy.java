@@ -1,8 +1,8 @@
-package Simon;
-
+package simon;
+//
 import guiPractice.components.Visible;
 
-public interface ProgressInterfaceSimon extends Visible {
+public interface ProgressInterfaceJimmy extends Visible {
 	void gameOver();
 
 	void setRound(int roundNumber);

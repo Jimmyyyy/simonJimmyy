@@ -1,4 +1,4 @@
-package simonjim;
+package simon;
 //
 import java.awt.Color;
 import java.awt.FontMetrics;
@@ -6,17 +6,17 @@ import java.awt.Graphics2D;
 
 import guiPractice.components.Component;
 
-public class Progress extends Component implements ProgressInterfaceSimon {
+public class Progress extends Component implements ProgressInterfaceJimmy {
 	
-	private static final int WIDTH = 200;
-	private static final int HEIGHT = 100;
+	private static final int WIDTH = 150;
+	private static final int HEIGHT = 150;
 	private String round;
 	private String sequence;
 	private boolean gameOver;
 
 
 	public Progress() {
-		super(200,50,WIDTH,HEIGHT);
+		super(225,125,WIDTH,HEIGHT);
 		// TODO Auto-generated constructor stub
 	
 	}
@@ -45,8 +45,8 @@ public class Progress extends Component implements ProgressInterfaceSimon {
 	public void update(Graphics2D g) {
 		FontMetrics fm = g.getFontMetrics();
 		if(gameOver){
-			g.setColor(Color.gray);
-			g.fillRect(0, 0, WIDTH, HEIGHT);
+			g.setColor(Color.yellow);
+			g.fillOval(0, 0, WIDTH, HEIGHT);
 			g.setColor(Color.red);
 			String go = "GAME OVER!";
 			g.drawString(go, (WIDTH - fm.stringWidth(go))/2, 20);
@@ -54,9 +54,9 @@ public class Progress extends Component implements ProgressInterfaceSimon {
 
 		}else{
 			g.setColor(Color.cyan);
-			g.fillRect(0, 0, WIDTH, HEIGHT);
+			g.fillOval(0, 0, WIDTH, HEIGHT);
 			g.setColor(Color.black);
-			g.drawRect(0, 0, WIDTH-1, HEIGHT-1);
+			g.drawOval(0, 0, WIDTH-1, HEIGHT-1);
 			if(round !=null && sequence!= null){
 
 				g.drawString(round, (WIDTH - fm.stringWidth(round))/2, 20);

@@ -1,4 +1,4 @@
-package simonjim;
+package simon;
 //
 import java.awt.Color;
 import java.util.ArrayList;
@@ -10,18 +10,18 @@ import guiPractice.components.TextLabel;
 import guiPractice.components.Visible;
 import guiPractice.ClickableScreen;
 
-public class SimonScreenSimon extends ClickableScreen implements Runnable{
+public class SimonScreenJimmy extends ClickableScreen implements Runnable{
 
-	private TextLabel tLabel;
-	private ButtonInterfaceSimon[] bInterface;
-	private ProgressInterfaceSimon pInterface;
-	private ArrayList<MoveInterfaceSimon> mInterface; 
+	private TextLabel label;
+	private ButtonInterfaceJimmy[] button;
+	private ProgressInterfaceJimmy progress;
+	private ArrayList<MoveInterfaceJimmy> sequence; 
 	private int roundNumber;
 	private boolean acceptingInput;
 	private int sequenceIndex;
 	private int lastSelectedButton;
 
-	public SimonScreenSimon(int width, int height) {
+	public SimonScreenJimmy(int width, int height) {
 		super(width, height);
 		Thread screen = new Thread(this);
 		screen.start();
@@ -30,14 +30,14 @@ public class SimonScreenSimon extends ClickableScreen implements Runnable{
 	public void nextRound() {
 		acceptingInput = false;
 		roundNumber ++;
-		pInterface.setRound(roundNumber);
-		mInterface.add(randomMove());
-		pInterface.setSequenceSize(mInterface.size());
+		progress.setRound(roundNumber);
+		sequence.add(randomMove());
+		progress.setSequenceSize(sequence.size());
 		changeText("Simon's turn.");
-		tLabel.setText("");
+		label.setText("");
 		playSequence();
-		changeText("Your turn.");
-		tLabel.setText("");
+		changeText("  Your turn.");
+		label.setText("");
 		acceptingInput = true;
 		sequenceIndex = 0;
 	}
@@ -45,15 +45,15 @@ public class SimonScreenSimon extends ClickableScreen implements Runnable{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		tLabel.setText("");
+		label.setText("");
 		nextRound();
 	}
 	
 
 	
 	private void playSequence() {
-		ButtonInterfaceSimon b = null;
-		for(MoveInterfaceSimon m: mInterface){
+		ButtonInterfaceJimmy b = null;
+		for(MoveInterfaceJimmy m: sequence){
 			if(b!=null)b.dim();
 			b = m.getButton();
 			b.highlight();
@@ -69,7 +69,7 @@ public class SimonScreenSimon extends ClickableScreen implements Runnable{
 
 	private void changeText(String string) {
 		try {
-			tLabel.setText(string);
+			label.setText(string);
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 		
@@ -80,45 +80,46 @@ public class SimonScreenSimon extends ClickableScreen implements Runnable{
 	@Override
 	public void initAllObjects(List<Visible> viewObjects) {
 		addButtons();
-		pInterface = getProgress();
-		tLabel = new TextLabel(250,90,300,40,"Let's play Simon!");
-		mInterface = new ArrayList<MoveInterfaceSimon>();
+		progress = getProgress();
+		label = new TextLabel(240,170,300,40,"Let's play Simon!");
+		sequence = new ArrayList<MoveInterfaceJimmy>();
 		//add 2 moves in order to start
 		lastSelectedButton = -1;
-		mInterface.add(randomMove());
-		mInterface.add(randomMove());
+		sequence.add(randomMove());
+		sequence.add(randomMove());
 		roundNumber = 0;
-		viewObjects.add(pInterface);
-		viewObjects.add(tLabel);
+		viewObjects.add(progress);
+		viewObjects.add(label);
 	}
 
-	private MoveInterfaceSimon randomMove() {
-		int select = (int) (Math.random()*bInterface.length);
+	private MoveInterfaceJimmy randomMove() {
+		int select = (int) (Math.random()*button.length);
 		while(select == lastSelectedButton){
-			select = (int) (Math.random()*bInterface.length);
+			select = (int) (Math.random()*button.length);
 		}
 		lastSelectedButton = select;
-		return new Move(bInterface[select]);
+		return new Move(button[select]);
 	}
 
-	private ProgressInterfaceSimon getProgress() {
+	private ProgressInterfaceJimmy getProgress() {
 		return new Progress();
 	}
 
 
 	private void addButtons(){
-		Color[] colors = {Color.yellow, Color.blue, Color.pink,Color.black,Color.red,Color.green};
-		int buttonCount = 6;
-		bInterface = new ButtonInterfaceSimon[buttonCount];
-
+		Color[] colors = {Color.green,Color.red,Color.blue,Color.yellow};
+		int buttonCount = 4;
+		button = new ButtonInterfaceJimmy[buttonCount];
+		int[][] coords = {{150,200}, {300,200}, {150,50}, {300,50}};
+		
 		for(int i = 0; i < buttonCount; i++ ){			
-			bInterface[i] = getAButton();
-			bInterface[i].setColor(colors[i]);
-			bInterface[i].setX(75+buttonCount + 75*i);
-			bInterface[i].setY(200);
-			final ButtonInterfaceSimon b = bInterface[i];
+			button[i] = getAButton();
+			button[i].setColor(colors[i]);
+			button[i].setX(coords[i][0]);
+			button[i].setY(coords[i][1]);
+			final ButtonInterfaceJimmy b = button[i];
 			b.dim();
-			bInterface[i].setAction(new Action() {
+			button[i].setAction(new Action() {
 
 				public void act() {
 
@@ -138,15 +139,15 @@ public class SimonScreenSimon extends ClickableScreen implements Runnable{
 					blink.start();
 
 					if(acceptingInput){
-						if(b==mInterface.get(sequenceIndex).getButton()){
+						if(b==sequence.get(sequenceIndex).getButton()){
 							sequenceIndex++;
 						}else{
-							pInterface.gameOver();
+							progress.gameOver();
 							return;
 						}
 					}
-					if(mInterface.size()==sequenceIndex){
-						Thread nextRound = new Thread(SimonScreenSimon.this);
+					if(sequence.size()==sequenceIndex){
+						Thread nextRound = new Thread(SimonScreenJimmy.this);
 						nextRound.start();
 					}
 				}
@@ -157,10 +158,10 @@ public class SimonScreenSimon extends ClickableScreen implements Runnable{
 	}
 
 	public void gameOver() {
-		pInterface.gameOver();
+		progress.gameOver();
 	}
 	
-	private ButtonInterfaceSimon getAButton() {
+	private ButtonInterfaceJimmy getAButton() {
 		return new Button();
 	}
 

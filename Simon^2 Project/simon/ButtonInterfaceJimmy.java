@@ -1,12 +1,12 @@
-package Simon;
-
+package simon;
+//
 import java.awt.Color;
 
 import guiPractice.components.Action;
 import guiPractice.components.Clickable;
 
-public interface ButtonInterfaceSimon extends Clickable {
-	ButtonInterfaceSimon getAButton(); // not sure if this is right
+public interface ButtonInterfaceJimmy extends Clickable {
+	ButtonInterfaceJimmy getAButton(); // not sure if this is right
 void dim();
 	void setAction(Action action);
 	
