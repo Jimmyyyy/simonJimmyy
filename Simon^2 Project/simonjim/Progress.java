@@ -14,9 +14,11 @@ public class Progress extends Component implements ProgressInterfaceSimon {
 	private String sequence;
 	private boolean gameOver;
 
-	public Progress(int x, int y, int w, int h) {
+
+	public Progress() {
 		super(200,50,WIDTH,HEIGHT);
 		// TODO Auto-generated constructor stub
+	
 	}
 
 	@Override

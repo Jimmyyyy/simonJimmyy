@@ -1,10 +1,10 @@
-package simonjim
+package simonjim;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import Simon.Progress;
+
 import guiPractice.components.Action;
 import guiPractice.components.TextLabel;
 import guiPractice.components.Visible;

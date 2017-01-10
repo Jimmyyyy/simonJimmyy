@@ -17,8 +17,9 @@ public class Button extends Component implements ButtonInterfaceSimon {
 	private Color displayColor;
 	private boolean highlight;
 	
-	public Button(int x, int y, int w, int h) {
-		super(x, y, w, h);
+
+	public Button() {
+		super(0,0,WIDTH,HEIGHT);
 		// TODO Auto-generated constructor stub
 	}
 
